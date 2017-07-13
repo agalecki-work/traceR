@@ -1,0 +1,5 @@
+import(SOAR)
+export(traceR.on, traceR.off, traceRead, traceRedit)
+export(traceR.optim)
+export(.traceRenv)
+export(traceR.report)
