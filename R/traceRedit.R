@@ -4,6 +4,12 @@ traceReditor <- function (fun, lbl, idx)
   message ("Function: ", lbl,  " already annotated. No changes made.")
   return(invisible(fun))
 }
+
+  if (as.character(body(fun)[1]) == "UseMethod"  ){
+  message ("Function: ", lbl,  " UseMethod. Not annotated.")
+  return(invisible(fun))
+}
+  
 curle_brackect_symbol <- as.symbol("{")
 out0 <- list(
      quote(`{`),
