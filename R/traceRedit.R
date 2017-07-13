@@ -97,7 +97,7 @@ traceReditFUN_ns <- function(cx = NULL, ns, pos = -1, envir = as.environment(pos
 invisible(cx)
 }
 
-isFunctionClass <- function(f) class(f)[1] == "function" && as.character(body(fun)[1])) != "UseMethod"
+isFunctionClass <- function(f) class(f)[1] == "function" && as.character(body(fun)[1]) != "UseMethod"
 
 traceRedit <- function(cx = NULL, ns, pos = -1, envir = as.environment(pos), verbose = FALSE){
 
