@@ -1,5 +1,6 @@
 traceReditor <- function (fun, lbl, idx, verbose = FALSE)
 {    # function annotates fun with .traceR statements
+  if (verbose) message("traceReditor: starts")
   if (!is.null(attr(fun, "locked"))){
   message ("Function: ", lbl,  " already annotated. No changes made.")
   return(invisible(fun))
@@ -65,6 +66,7 @@ traceReditf <- function(x, lbl = ".", ...){
 traceReditFUN_ns <- function(cx = NULL, ns, pos = -1, envir = as.environment(pos), verbose = FALSE){
 ## cx  is character vector containing object names (only *functions* in namespace ns will be annotated)
     
+   if (verbose)  message("traceReditFUN_ns: STARTS")
    if (missing(ns)) {
         nm <- attr(envir, "name", exact = TRUE)
         if (is.null(nm) || substring(nm, 1L, 8L) != "package:") 
@@ -87,11 +89,14 @@ traceReditFUN_ns <- function(cx = NULL, ns, pos = -1, envir = as.environment(pos
         
     # if (verbose) message("Before get call")
     gsubx <- get(subx, envir = ns, inherits = FALSE)
-    # if (verbose) message("After get call")
+    
+    
+    if (verbose) message("Before  if isFunctionClass(gsubx)")
+    
     if (isFunctionClass(gsubx)){
     if (verbose) message("Before traceReditor")
     x <- traceReditor(gsubx, lbl = cx[i], idx = idx[i], verbose = verbose)
-    if (verbose) message("Note:", subx, "function was annotated.")
+    if (verbose) message("Note: ", subx, " Before assignInNamespace")
     assignInNamespace(subx, x, ns)
     } else if (verbose) message("Note: ",  subx, " is of ", class(gsubx)[1], "class and it was NOT annotated")
 }
