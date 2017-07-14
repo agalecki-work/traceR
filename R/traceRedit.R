@@ -6,7 +6,7 @@ traceReditor <- function (fun, lbl, idx)
 }
 
   if (as.character(body(fun)[1]) == "UseMethod"  ){
-  message ("Function: ", lbl,  " UseMethod. Not annotated.")
+  message ("Function: ", lbl,  " Method function Not annotated.")
   return(invisible(fun))
 }
   
@@ -86,7 +86,7 @@ traceReditFUN_ns <- function(cx = NULL, ns, pos = -1, envir = as.environment(pos
     if (!is.character(subx) || length(subx) != 1L) 
         stop("'fixInNamespace' requires a name")
         
-    gsubx <- get(subx, envir = ns, inherits = FALSE)
+    gsubx <- get0(subx, envir = ns, inherits = FALSE)
 
     if (isFunctionClass(gsubx)){
     x <- traceReditor(gsubx, lbl = cx[i], idx = idx[i])
