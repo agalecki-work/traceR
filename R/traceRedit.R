@@ -1,16 +1,12 @@
-traceReditor <- function (fun, lbl, idx)
+traceReditor <- function (fun, lbl, idx, verbose = FALSE)
 {    # function annotates fun with .traceR statements
   if (!is.null(attr(fun, "locked"))){
   message ("Function: ", lbl,  " already annotated. No changes made.")
   return(invisible(fun))
 }
-
-  if (as.character(body(fun)[1]) == "UseMethod"  ){
-  message ("Function: ", lbl,  " Method function Not annotated.")
-  return(invisible(fun))
-}
   
 curle_brackect_symbol <- as.symbol("{")
+if (verbose) then message("traceReditor: before out0")
 out0 <- list(
      quote(`{`),
      substitute(.functionLabel <- tx, list(tx = lbl)),
@@ -21,7 +17,8 @@ out0 <- list(
 b_f <- body(fun)
 
 if (is.null(b_f)) stop("Body of ", fun, " is NULL.") 
- 
+
+if (verbose) then message("traceReditor: before L")
 L <- if (is.symbol(b_f)){
         # print(paste("-- is.symbol", lbl))
         c(curle_brackect_symbol, b_f)
@@ -32,7 +29,7 @@ L <- if (is.symbol(b_f)){
           } else {
           as.list(b_f)
       }}
-          
+if (verbose) then message("traceReditor: before T")          
 T <- lapply(1:length(L), function(el){
         ix <- (idx *100 + el)/100
         lblx <- as.character(as.expression(L[[el]]))
@@ -41,13 +38,14 @@ T <- lapply(1:length(L), function(el){
         } else {
         substitute(.traceR(ix, lbl, auto = TRUE), list(ix = ix, lbl = lblx ))
         }})
-     
+if (verbose) then message("traceReditor: before out")    
 out <- vector("list", 2 * length(L)-2 )
 for (i in seq_along(L)) {
   if (i > 1) out[2*i-2] <- L[i]
   if (i < length(L)) out[2*i-1]  <- T[i] 
 }
 
+if (verbose) then message("traceReditor: before funR") 
 funR <- fun
 lx <- c(out0,out)
 body(funR) <- as.call(lx)
@@ -92,7 +90,7 @@ traceReditFUN_ns <- function(cx = NULL, ns, pos = -1, envir = as.environment(pos
     # if (verbose) message("After get call")
     if (isFunctionClass(gsubx)){
     if (verbose) message("Before traceReditor")
-    x <- traceReditor(gsubx, lbl = cx[i], idx = idx[i])
+    x <- traceReditor(gsubx, lbl = cx[i], idx = idx[i], verbose = verbose)
     if (verbose) message("Note:", subx, "function was annotated.")
     assignInNamespace(subx, x, ns)
     } else if (verbose) message("Note: ",  subx, " is of ", class(gsubx)[1], "class and it was NOT annotated")
@@ -100,7 +98,7 @@ traceReditFUN_ns <- function(cx = NULL, ns, pos = -1, envir = as.environment(pos
 invisible(cx)
 }
 
-isFunctionClass <- function(f) class(f)[1] == "function" && as.character(body(f)[1]) != "UseMethod"
+isFunctionClass <- function(f) class(f)[1] == "function"
 
 traceRedit <- function(cx = NULL, ns, pos = -1, envir = as.environment(pos), verbose = FALSE){
 
