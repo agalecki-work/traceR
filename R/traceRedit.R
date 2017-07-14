@@ -80,14 +80,16 @@ traceReditFUN_ns <- function(cx = NULL, ns, pos = -1, envir = as.environment(pos
 
 
   for (i in seq_along(cx)){ 
+     if (verbose) message("---", cx[i], "----")
      subx <- substitute(x, list(x = cx[i]))
     if (is.name(subx))  subx <- deparse(subx)
  
     if (!is.character(subx) || length(subx) != 1L) 
         stop("'fixInNamespace' requires a name")
         
-    gsubx <- get0(subx, envir = ns, inherits = FALSE)
-
+    if (verbose) message("Before get call")
+    gsubx <- get(subx, envir = ns, inherits = FALSE)
+    if (verbose) message("After get call")
     if (isFunctionClass(gsubx)){
     x <- traceReditor(gsubx, lbl = cx[i], idx = idx[i])
     if (verbose) message("Note:", subx, "function was annotated.")
