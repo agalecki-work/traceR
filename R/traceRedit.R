@@ -1,6 +1,6 @@
 traceReditor <- function (fun, lbl, idx, verbose = FALSE)
 {    # function annotates fun with .traceR statements
-  if (verbose) message("traceReditor: starts")
+  if (verbose) message("-traceReditor: starts")
   if (!is.null(attr(fun, "locked"))){
   message ("Function: ", lbl,  " already annotated. No changes made.")
   return(invisible(fun))
