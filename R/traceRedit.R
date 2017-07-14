@@ -6,7 +6,7 @@ traceReditor <- function (fun, lbl, idx, verbose = FALSE)
 }
   
 curle_brackect_symbol <- as.symbol("{")
-if (verbose) then message("traceReditor: before out0")
+if (verbose) message("traceReditor: before out0")
 out0 <- list(
      quote(`{`),
      substitute(.functionLabel <- tx, list(tx = lbl)),
@@ -18,7 +18,7 @@ b_f <- body(fun)
 
 if (is.null(b_f)) stop("Body of ", fun, " is NULL.") 
 
-if (verbose) then message("traceReditor: before L")
+if (verbose) message("traceReditor: before L")
 L <- if (is.symbol(b_f)){
         # print(paste("-- is.symbol", lbl))
         c(curle_brackect_symbol, b_f)
@@ -29,7 +29,7 @@ L <- if (is.symbol(b_f)){
           } else {
           as.list(b_f)
       }}
-if (verbose) then message("traceReditor: before T")          
+if (verbose) message("traceReditor: before T")          
 T <- lapply(1:length(L), function(el){
         ix <- (idx *100 + el)/100
         lblx <- as.character(as.expression(L[[el]]))
@@ -38,14 +38,14 @@ T <- lapply(1:length(L), function(el){
         } else {
         substitute(.traceR(ix, lbl, auto = TRUE), list(ix = ix, lbl = lblx ))
         }})
-if (verbose) then message("traceReditor: before out")    
+if (verbose) message("traceReditor: before out")    
 out <- vector("list", 2 * length(L)-2 )
 for (i in seq_along(L)) {
   if (i > 1) out[2*i-2] <- L[i]
   if (i < length(L)) out[2*i-1]  <- T[i] 
 }
 
-if (verbose) then message("traceReditor: before funR") 
+if (verbose) message("traceReditor: before funR") 
 funR <- fun
 lx <- c(out0,out)
 body(funR) <- as.call(lx)
