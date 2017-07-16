@@ -23,15 +23,9 @@ traceReditor <- function (fun, lbl, idx, verbose = FALSE)
 
  b_f <- body(fun)
 
-
- L <- if (is.symbol(b_f)){
+ L <- if (is.symbol(b_f)  || as.character(b_f[1]) != curle_brackect_symbol) {
         c(curle_brackect_symbol, b_f)
-      } else {
-        if (as.character(b_f[1]) != curle_brackect_symbol){
-          c(curle_brackect_symbol, b_f)
-          } else {
-          as.list(b_f)
-      }}
+      } else  as.list(b_f)
        
 T <- lapply(1:length(L), function(el){
         ix <- (idx *100 + el)/100
