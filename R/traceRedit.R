@@ -2,9 +2,9 @@ fun_info <- function(fun, lbl = NULL ) {
 # Check whether body of a function is null
  
  info <- character()
- if (mode(fun) != "function")       info <- c(info, message ("Object", lbl, "is not a function))
+ if (mode(fun) != "function")       info <- c(info, message ("Object ", lbl, "is not a function"))
  if (is.null(body(fun)))            info <- c(info, message ("Function: ", lbl,  " body is null. No changes made."))
- if (!is.null(attr(fun, "locked"))) info <- c(info,  message("Function: ", lbl,  " already annotated. No changes made.")
+ if (!is.null(attr(fun, "locked"))) info <- c(info,  message("Function: ", lbl,  " already annotated. No changes made."))
  if (length(info > 0))    message ("Object/function ", lbl, "not suitable for annotations")
  return(info)
 }
