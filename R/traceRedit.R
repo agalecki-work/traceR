@@ -60,8 +60,8 @@ funR
 }
 
 
-traceReditf <- function(x, lbl = ".", ...){
-   res <- traceReditor(x, lbl  = lbl, ...)
+traceReditf <- function(x, lbl = ".", idx = 0, ...){
+   res <- traceReditor(x, lbl  = lbl, idx = idx,...)
    res
 }
 
