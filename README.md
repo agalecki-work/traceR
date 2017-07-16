@@ -1,12 +1,30 @@
 # traceR
-Tracing execution of R functions
+Annotating R functions to trace their execution
 
 ## Installation
 
 * Development version from Github:
 ```
-library("devtools"); install_github("agalecki/traceR")
+library("devtools")
+install_github("agalecki/traceR")
+library (traceR)
 ```
+
+
+
+
+# Examples
+
+
+## Annotation of a single function
+
+```
+(fx <- function(x) x+2)
+traceReditf(fx, lbl = "fx", idx = 3)                # fx annotated
+traceReditf(round)                                  # Body is null. Annotation not made. Error message.
+traceReditf(testthat:::as.expectation.expectation)                                 )
+```
+
 ## Example: stringr package
 
 * Check the body of a selected function 
@@ -30,7 +48,7 @@ stringr:::word                # Annotated function
 ```
 library(stringr)
 sentences <- c("Jane saw a cat", "Jane sat down")
-traceR.on()
+traceR.on()          #  options()$traceR
 word(sentences, 1)
 head(.traceRmap)
 dim(.traceRmap)
