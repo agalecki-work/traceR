@@ -1,4 +1,4 @@
-fun_info <- function(fun, lbl = NULL ) {
+check_fanno <- function(fun, lbl = NULL ) {
 # Check whether body of a function is null
  
  info <- character()
@@ -10,11 +10,10 @@ fun_info <- function(fun, lbl = NULL ) {
 }
 
 
-traceReditor <- function (fun, lbl = ".", idx =1, verbose = FALSE) {    
-  # function annotates fun with .traceR statements
-  if (verbose) message("-traceReditor: starts")
- 
- funinfo <- fun_info(fun, lbl= lbl) 
+traceReditor <- function (fun, lbl = ".", idx = 0, verbose = FALSE) {    
+# function annotates fun with .traceR statements
+ if (verbose) message("-traceReditor: starts")
+ funinfo <- check_fanno(fun, lbl= lbl) 
  
  if (length(funinfo) > 0)  return(invisible(fun))  # Function unchanged
   
