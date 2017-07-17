@@ -48,19 +48,19 @@ out0 <- list(
      quote(.traceR <- if (is.null(.traceR)) function(...){} else .traceR)
 )
 
-
-funR <- fun
-lx <- c(out0,out)
-body(funR) <- as.call(lx)
-attr(funR, "locked") <- TRUE
-attr(funR, "oldFun") <- fun
-funR     
+lx <- c(out0, out)
+return(as.call(lx))
 }
-
+    
 
 traceReditf <- function(x, lbl = ".", idx = 0, ...){
-   res <- traceReditor(x, lbl  = lbl, idx = idx,...)
-   res
+   callx <- traceReditor(x, lbl  = lbl, idx = idx,...)
+
+   funR <- x
+   body(funR) <-  callx
+   attr(funR, "locked") <- TRUE
+   attr(funR, "oldFun") <- fun
+   funR 
 }
 
 
