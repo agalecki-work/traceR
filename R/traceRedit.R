@@ -13,9 +13,6 @@ check_fanno <- function(fun, lbl = NULL ) {
 traceReditor <- function (fun, lbl = ".", idx = 0, verbose = FALSE) {    
 # function annotates fun with .traceR statements
  if (verbose) message("-traceReditor: starts")
- funinfo <- check_fanno(fun, lbl= lbl) 
- 
- if (length(funinfo) > 0)  return(invisible(fun))  # Function unchanged
   
  curle_brackect_symbol <- as.symbol("{")
 
@@ -54,12 +51,15 @@ return(as.call(lx))
     
 
 traceReditf <- function(x, lbl = ".", idx = 0, ...){
+   funinfo <- check_fanno(x, lbl= lbl) 
+   if (length(funinfo) > 0)  return(invisible(x))  # Function unchanged
+   
    callx <- traceReditor(x, lbl  = lbl, idx = idx,...)
 
    funR <- x
    body(funR) <-  callx
    attr(funR, "locked") <- TRUE
-   attr(funR, "oldFun") <- fun
+   attr(funR, "oldFun") <- x
    funR 
 }
 
