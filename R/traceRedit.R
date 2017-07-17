@@ -10,8 +10,7 @@ fun_info <- function(fun, lbl = NULL ) {
 }
 
 
-traceReditor <- function (fun, lbl, idx, verbose = FALSE)
-{    
+traceReditor <- function (fun, lbl = ".", idx =1, verbose = FALSE) {    
   # function annotates fun with .traceR statements
   if (verbose) message("-traceReditor: starts")
  
@@ -42,7 +41,7 @@ for (i in seq_along(L)) {
   if (i < length(L)) out[2*i-1]  <- T[i] 
 }
 
-
+## Create new body
 out0 <- list(
      quote(`{`),
      substitute(.functionLabel <- tx, list(tx = lbl)),
