@@ -12,7 +12,7 @@ check_fanno <- function(fun, flbl = deparse(substitute(fun))) {
 annotate_fun <- function(fun, flbl = ".", idx = 0, anno = "traceR:::traceReditor"){
    funinfo <- check_fanno(fun, flbl = flbl) 
    if (length(funinfo) > 0)  return(invisible(fun))  # Function unchanged
-   callx <- do.call(anno, list = (fun = fun, flbl = flbl, idx = idx)))
+   callx <- do.call(anno, list(fun = fun, flbl = flbl, idx = idx))
    funR <- fun
    body(funR) <-  callx
    attr(funR, "locked") <- TRUE
