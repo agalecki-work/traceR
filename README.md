@@ -23,10 +23,10 @@ traceR:::traceReditor(fx)
 
 ```
 (fx <- function(x) x^2)
-annotate_fun(fx)                                    # fx annotated
-annotate_fun(fx, flbl = "our_label"
-traceReditf(round)                                  # Body is null. Annotation not made. Error message.
-traceReditf(testthat:::as.expectation.expectation)                                 )
+annotate_fun(fx)                                     # fx annotated
+annotate_fun(fx, flbl = "our_label")
+annotate_fun(round)                                  # Body is null. Annotation not made. Error message.
+annotate_fun(testthat:::as.expectation.expectation)                                 )
 ```
 
 ## Example: stringr package
