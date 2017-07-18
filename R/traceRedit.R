@@ -17,7 +17,7 @@ traceReditf <- function(x, lbl = ".", idx = 0, ...){
    funinfo <- check_fanno(x, lbl= lbl) 
    if (length(funinfo) > 0)  return(invisible(x))  # Function unchanged
    
-   callx <- traceReditor(x, lbl  = lbl, idx = idx,...)
+   callx <- traceReditor(x, lfbl  = lbl, idx = idx,...)
 
    funR <- x
    body(funR) <-  callx
@@ -54,11 +54,10 @@ traceReditFUN_ns <- function(cx = NULL, ns, pos = -1, envir = as.environment(pos
     gsubx <- get(subx, envir = ns, inherits = FALSE)
     
     
-    if (verbose) message("Before  if isFunctionClass(gsubx)")
     
     if (isFunctionClass(gsubx)){
-    if (verbose) message("Before traceReditor")
-    x <- traceReditor(gsubx, lbl = cx[i], idx = idx[i], verbose = verbose)
+    
+    x <- traceReditor(gsubx, flbl = cx[i], idx = idx[i], verbose = verbose)
     if (verbose) message("Note: ", subx, " Before assignInNamespace")
     assignInNamespace(subx, x, ns)
     } else if (verbose) message("Note: ",  subx, " is of ", class(gsubx)[1], "class and it was NOT annotated")
