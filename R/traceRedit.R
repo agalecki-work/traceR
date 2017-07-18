@@ -1,22 +1,19 @@
-check_fanno <- function(fun, lbl = NULL ) {
+check_fanno <- function(fun, flbl = deparse(substitute(fun))) {
 # Check whether body of a function is null
  
  info <- character()
- if (mode(fun) != "function")       info <- c(info, message ("Object ", lbl, "is not a function"))
- if (is.null(body(fun)))            info <- c(info, message ("Function: ", lbl,  " body is null. No changes made."))
- if (!is.null(attr(fun, "locked"))) info <- c(info,  message("Function: ", lbl,  " already annotated. No changes made."))
- if (length(info > 0))    message ("Object/function ", lbl, "not suitable for annotations")
+ if (mode(fun) != "function")       info <- c(info, message ("Object ", flbl, "is not a function"))
+ if (is.null(body(fun)))            info <- c(info, message ("Function: ", flbl,  " body is null. No changes made."))
+ if (!is.null(attr(fun, "locked"))) info <- c(info,  message("Function: ", flbl,  " already annotated. No changes made."))
+ if (length(info > 0))    message ("Object/function ", flbl, "not suitable for annotations")
  return(info)
 }
 
-
-traceReditf <- function(x, lbl = ".", idx = 0, ...){
-   funinfo <- check_fanno(x, lbl= lbl) 
-   if (length(funinfo) > 0)  return(invisible(x))  # Function unchanged
-   
-   callx <- traceReditor(x, flbl = lbl, idx = idx)
-
-   funR <- x
+annotate_fun <- function(fun, flbl = ".", idx = 0, anno = "traceR:::traceReditor"){
+   funinfo <- check_fanno(fun, flbl = flbl) 
+   if (length(funinfo) > 0)  return(invisible(fun))  # Function unchanged
+   callx <- do.call(anno, list = (fun = fun, flbl = flbl, idx = idx)))
+   funR <- fun
    body(funR) <-  callx
    attr(funR, "locked") <- TRUE
    attr(funR, "oldFun") <- x
