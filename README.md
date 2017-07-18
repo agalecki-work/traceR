@@ -5,6 +5,7 @@ Annotating R functions to trace their execution
 
 * Development version from Github:
 ```
+rm(list = ls())
 library("devtools")
 install_github("agalecki/traceR")
 library (traceR)
@@ -13,14 +14,20 @@ library (traceR)
 
 
 
-# Examples
+# Examples of modifying body of a function
+
+```
+(fx <- function(x) x+2)
+traceR:::traceReditor(fx)
+```
+
 
 
 ## Annotation of a single function
 
 ```
-(fx <- function(x) x+2)
-traceReditf(fx, lbl = "fx", idx = 3)                # fx annotated
+(fx <- function(x) x^2)
+traceReditf(fx, lbl = "our_label", idx = 3)                # fx annotated
 traceReditf(round)                                  # Body is null. Annotation not made. Error message.
 traceReditf(testthat:::as.expectation.expectation)                                 )
 ```
