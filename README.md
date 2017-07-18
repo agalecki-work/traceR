@@ -23,7 +23,7 @@ traceR:::traceReditor(fx)
 
 ```
 (fx <- function(x) x^2)
-traceReditf(fx, lbl = "our_label", idx = 3)                # fx annotated
+annotate_fun(fx, lbl = "our_label", idx = 3)                # fx annotated
 traceReditf(round)                                  # Body is null. Annotation not made. Error message.
 traceReditf(testthat:::as.expectation.expectation)                                 )
 ```
