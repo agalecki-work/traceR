@@ -9,7 +9,7 @@ check_fanno <- function(fun, flbl = deparse(substitute(fun))) {
  return(info)
 }
 
-annotate_fun <- function(fun, flbl = ".", idx = 0, anno = "traceR:::traceReditor"){
+annotate_fun <- function(fun, flbl = ".", idx = 0, anno = "traceReditor"){
    funinfo <- check_fanno(fun, flbl = flbl) 
    if (length(funinfo) > 0)  return(invisible(fun))  # Function unchanged
    callx <- do.call(anno, list(fun = fun, flbl = flbl, idx = idx))
