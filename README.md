@@ -11,7 +11,7 @@ install_github("agalecki/traceR")
 library (traceR)
 ```
 
-# Create annotated body of a function
+## Create annotated body of a function
 
 ```
 (fx <- function(x) x+2)
@@ -23,7 +23,8 @@ traceR:::traceReditor(fx)
 
 ```
 (fx <- function(x) x^2)
-annotate_fun(fx, lbl = "our_label", idx = 3)                # fx annotated
+annotate_fun(fx)                                    # fx annotated
+annotate_fun(fx, flbl = "our_label"
 traceReditf(round)                                  # Body is null. Annotation not made. Error message.
 traceReditf(testthat:::as.expectation.expectation)                                 )
 ```
