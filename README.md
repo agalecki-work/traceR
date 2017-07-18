@@ -11,16 +11,12 @@ install_github("agalecki/traceR")
 library (traceR)
 ```
 
-
-
-
-# Examples of modifying body of a function
+# Create annotated body of a function
 
 ```
 (fx <- function(x) x+2)
 traceR:::traceReditor(fx)
 ```
-
 
 
 ## Annotation of a single function
