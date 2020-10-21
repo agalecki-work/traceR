@@ -7,7 +7,7 @@ Annotating R functions to trace their execution
 ```
 rm(list = ls())
 library("devtools")
-install_github("agalecki/traceR")
+install_github("agalecki-work/traceR")
 library (traceR)
 ```
 
